@@ -17,18 +17,18 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.cursors = this.scene.input.keyboard.createCursorKeys()
         this
             .setOrigin(0, 1)
-            .setGravityY(200)
+            .setGravityY(1000)
             .setCollideWorldBounds(true)
             .setBodySize(44, 92)
         this.registerAnims()
     }
-    playRunAnims(){
-        this.play("dino-run-anims",true)
+    playRunAnims() {
+        this.play("dino-run-anims", true)
     }
     registerAnims() {
         this.anims.create({
             key: 'dino-run-anims',
-            frames: this.anims.generateFrameNames("dino-run", {start: 2,end:3}),
+            frames: this.anims.generateFrameNames("dino-run", { start: 2, end: 3 }),
             frameRate: 10,
             repeat: -1
 
@@ -44,14 +44,18 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             return
         }
         if (isSpaceJustDown && onFloor) {
-            this.setVelocityY(-1600);
+            this.setVelocityY(-1000);
         }
-        if (this.body.deltaAbsY() > 0){
+        if (this.body.deltaAbsY() > 0) {
             this.anims.stop();
-            this.setTexture('dino-run',0)
+            this.setTexture('dino-run', 0)
         }
-        else{
+        else {
             this.playRunAnims();
         }
+    }
+    die() {
+        this.anims.pause();
+        this.setTexture('dino-hurt');
     }
 }
