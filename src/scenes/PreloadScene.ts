@@ -14,12 +14,6 @@ class PreloadScene extends Phaser.Scene{
         for (let i=1 ; i <= PRELOAD_CONFIG.cactusesCount; i++){
             this.load.image(`obstacle-${i}`,`assets/cactuses_${i}.png`)
         }
-        // this.load.image('obstacle-1' , 'assets/cactuses_1.png')
-        // this.load.image('obstacle-2' , 'assets/cactuses_2.png')
-        // this.load.image('obstacle-3' , 'assets/cactuses_3.png')
-        // this.load.image('obstacle-4' , 'assets/cactuses_4.png')
-        // this.load.image('obstacle-5' , 'assets/cactuses_5.png')
-        // this.load.image('obstacle-6' , 'assets/cactuses_6.png')
     }
     create(){
     this.scene.start('PlayScene')
