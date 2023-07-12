@@ -1,21 +1,21 @@
 import Phaser from 'phaser';
 import { SpriteWithDynamicBody } from '../type';
 import { Player } from '../entities/Player';
+import { GameScene } from "./GameScene";
+import { PRELOAD_CONFIG } from '..';
 
-class PlayScene extends Phaser.Scene {
+
+class PlayScene extends GameScene {
 
     player: Player;
     ground: Phaser.GameObjects.TileSprite;
-    isGameRunning: boolean = true
+    spawnInterval: number = 1500
+    spawnTime = 0
+    obstacleSpeed= 5
+    obstacles: Phaser.Physics.Arcade.Group 
     startTrigger: SpriteWithDynamicBody;
+    
 
-
-    get gameHeight() {
-        return this.game.config.height as number
-    }
-    get gameWidth() {
-        return this.game.config.width as number;
-    }
     constructor() {
         super('PlayScene')
     }
@@ -25,6 +25,7 @@ class PlayScene extends Phaser.Scene {
     create() {
         this.createEnvironment();
         this.createPlayer();
+
         this.startTrigger = this.physics.add.sprite(0, 10, null)
             .setAlpha(0)
             .setOrigin(0, 1);
@@ -39,6 +40,8 @@ class PlayScene extends Phaser.Scene {
             this.startTrigger.body.reset(9999, 9999);
             console.log("Roll out the ground and start the game!");
         })
+
+        this.obstacles = this.physics.add.group()
 
 
         const rollOutEvent = this.time.addEvent({
@@ -58,6 +61,23 @@ class PlayScene extends Phaser.Scene {
         });
 
     }
+    update(time : number , delta : number): void {
+        if(!this.isGameRunning) return;
+        this.spawnTime += delta;
+
+        if (this.spawnTime >= this.spawnInterval){
+            console.log("spwaing")
+            this.spawnObstacle();
+            this.spawnTime = 0;
+        }
+        Phaser.Actions.IncX(this.obstacles.getChildren(), -this.obstacleSpeed)
+        this.obstacles.getChildren().forEach((obstacle: SpriteWithDynamicBody)=>{
+            if (obstacle.getBounds().right < 0){
+                this.obstacles.remove(obstacle);
+            }
+        })
+        console.log(this.obstacles.getChildren().length);
+    }
     createEnvironment() {
         this.ground =
             this.add.tileSprite(0, this.gameHeight, 88, 26, 'ground').setOrigin(0, 1);
@@ -65,9 +85,12 @@ class PlayScene extends Phaser.Scene {
     createPlayer() {
         this.player = new Player(this, 0, this.gameHeight)
     }
-
-    update() {
-
+    spawnObstacle(){
+      const obstacleNum = Math.floor(Math.random()*PRELOAD_CONFIG.cactusesCount+1);
+      const distance = Phaser.Math.Between(600,900);
+      this.obstacles.create(distance,this.gameHeight,`obstacle-${obstacleNum}`)
+      .setOrigin(0,1)
     }
+
 }
 export default PlayScene;
