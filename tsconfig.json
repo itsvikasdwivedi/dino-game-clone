@@ -6,6 +6,6 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
   },
-  "include": ["dino-game-clone/assets/src/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
