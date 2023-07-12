@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+  },
+  "include": ["dino-game-clone/assets/src/**/*"],
+  "exclude": ["node_modules"]
+}
