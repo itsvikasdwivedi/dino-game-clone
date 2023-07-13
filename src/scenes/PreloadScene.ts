@@ -24,7 +24,9 @@ class PreloadScene extends Phaser.Scene{
         this.load.spritesheet('enemy-bird', 'assets/enemy-bird.png',{
             frameWidth: 92 ,frameHeight: 77
         })
-
+        this.load.audio('jump','assets/hit.m4a')
+        this.load.audio('hit','assets/hit.m4a')
+        this.load.audio('progress','assets/reach.m4a')
     }
     create(){
     this.scene.start('PlayScene')
