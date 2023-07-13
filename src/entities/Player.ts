@@ -44,7 +44,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     const onFloor = (this.body as Phaser.Physics.Arcade.Body).onFloor();
     
     
-
     if (isSpaceJustDown && onFloor) {
       this.setVelocityY(-1600);
       this.jumpSound.play();
