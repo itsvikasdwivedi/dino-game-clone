@@ -8,10 +8,6 @@
 
 3. Navigate into the project directory
 
-```bash
-  $ cd phaser3-typescript-simple-template
-```
-
 4. Install the requirements
 
 ```bash
